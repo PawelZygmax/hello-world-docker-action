@@ -1,0 +1,32 @@
+name: Build & Deploy DEV app
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+    - uses: actions/checkout@v2
+    
+    - name: Deploy to server
+      id: deploy
+      uses: Pendect/action-rsyncer@v1.1.0
+      env:
+        DEPLOY_KEY: ${{secrets.DEV_DEPLOY_KEY}}
+      with:
+        flags: '-avzr --delete'
+        options: ''
+        ssh_options: ''
+        src: '.'
+        dest: 31.42.3.18
+      
+    - name: Display status from deploy
+      run: echo "${{steps.deploy.outputs.status}}"
+        
+     
