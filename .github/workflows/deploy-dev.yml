@@ -24,7 +24,7 @@ jobs:
         options: ''
         ssh_options: ''
         src: '.'
-        dest: 'wioso_user@31.42.3.18:/wioso_user/app/'
+        dest: 'wioso_user@31.42.3.18:/app/'
       
     - name: Display status from deploy
       run: echo "${{steps.deploy.outputs.status}}"
